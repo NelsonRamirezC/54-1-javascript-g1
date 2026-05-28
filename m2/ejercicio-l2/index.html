@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio l2</title>
+
+    <style>
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 4px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Películas de marvel</h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li>
+                <a href="#fase1">Fase 1</a>
+            </li>
+            <li>
+                <a href="#fase2">Fase 2</a>
+            </li>
+            <li>
+                <a href="#fase3">Fase 3</a>
+            </li>
+            <li>
+                <a href="#fase4">Fase 4</a>
+            </li>
+            <li>
+                <a href="#fase5">Fase 5</a>
+            </li>
+        </ul>
+    </nav>
+
+    <main>
+
+        <!-- INICIO FASE 1 -->
+        <section id="fase1">
+            <h2>Fase 1</h2>
+
+            <article>
+                <h3>Iron Man (2008)</h3>
+                <p>Dirigida por...</p>
+            </article>
+
+            <article>
+                <h3>The Incrdible Hulk (2008)</h3>
+                <p>Dirigida por...</p>
+            </article>
+        </section>
+        <!-- FIN FASE 1 -->
+
+
+        <!-- INICIO FASE 4 -->
+        <section id="fase4">
+            <h2>Fase 4</h2>
+
+            <img src="./assets/img/imagen1.webp" alt="Portada película Marvel" width="200">
+
+
+        </section>
+        <!-- FIN FASE 4 -->
+
+
+        <!-- INICIO FASE 5 -->
+        <section id="fase5">
+            <h2>Fase 5</h2>
+
+            <div>
+                <h3>Personajes</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Edad</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Hulk</td>
+                            <td>45</td>
+                        </tr>
+                        <tr>
+                            <td>Thor</td>
+                            <td>39</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div>
+                <h3>Deja una sugerencia para nuestro app.</h3>
+                <form>
+                    <div>
+                        <label for="nombre">Ingresa tu nombre:</label>
+                        <input type="text" name="nombre" required id="nombre">
+                    </div>
+                    <br>
+                    <div>
+                        <label for="email">Ingresa tu email:</label>
+                        <input type="email" name="email" required id="email">
+                    </div>
+
+                    <div>
+                        <label for="mensaje">Deja tu mensaje:</label>
+                        <br>
+                        <textarea name="mensaje" id="mensaje" required></textarea>
+                    </div>
+
+                    <div>
+                        <input type="submit" value="Enviar">
+                    </div>
+                </form>
+            </div>
+
+        </section>
+
+        <!-- FIN FASE 5 -->
+
+
+
+    </main>
+
+
+</body>
+
+</html>
