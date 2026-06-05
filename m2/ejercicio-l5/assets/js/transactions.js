@@ -25,7 +25,7 @@ if (listaTransaccionesEl) {
     for (const transaccion of transacciones) {
         let monto = transaccion.monto.toLocaleString("es-CL");
 
-        elementosLista += `<li class="list-group-item list-group-item-action">${transaccion.glosa} - $${monto}</li>`
+        elementosLista += `<li class="list-group-item list-group-item-action">${transaccion.glosa} - $${monto}</li>`;
     };
 
     listaTransaccionesEl.innerHTML = elementosLista;
