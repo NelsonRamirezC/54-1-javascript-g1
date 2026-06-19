@@ -1,0 +1,82 @@
+<script>
+
+    // Inicializamos el saldo de la cuenta y la variable de control del bucle
+    let saldo = 1000;
+    let continuar = true;
+
+    while (continuar) {
+        // Mostramos el menú y capturamos la opción del usuario
+        let opcion = prompt(
+            "--- CAJERO AUTOMÁTICO ---\n" +
+            "1. Consultar Saldo\n" +
+            "2. Depositar Dinero\n" +
+            "3. Retirar Dinero\n" +
+            "4. Salir\n\n" +
+            "Por favor, elige una opción (1-4):"
+        );
+
+        // Evaluamos la opción ingresada
+        switch (opcion) {
+            case "1":
+                alert("Tu saldo actual es: $" + saldo);
+                break;
+
+            case "2":
+                let deposito = parseFloat(prompt("¿Cuánto dinero deseas depositar?"));
+
+                // Validamos que sea un número válido y mayor que cero
+                if (!isNaN(deposito) && deposito > 0) {
+                    saldo += deposito; // saldo = saldo + deposito
+                    alert("Depósito exitoso. Tu nuevo saldo es: $" + saldo);
+                } else {
+                    alert("Monto inválido. Inténtalo de nuevo.");
+                }
+                break;
+
+            case "3":
+                let retiro = parseFloat(prompt("¿Cuánto dinero deseas retirar?"));
+
+                // Validamos que sea un número válido, mayor que cero y que haya saldo suficiente
+                if (!isNaN(retiro) && retiro > 0) {
+                    if (retiro <= saldo) {
+                        saldo -= retiro; // saldo = saldo - retiro
+                        alert("Retiro exitoso. Retira tu dinero. Tu nuevo saldo es: $" + saldo);
+                    } else {
+                        alert("Fondos insuficientes. Tu saldo es de: $" + saldo);
+                    }
+                } else {
+                    alert("Monto inválido. Inténtalo de nuevo.");
+                }
+                break;
+
+            case "4":
+                // Si elige salir, cambiamos la variable a false para romper el bucle while
+                alert("Gracias por usar el cajero automático. ¡Hasta luego!");
+                continuar = false;
+                break;
+
+            case null:
+                // Si el usuario presiona "Cancelar" en el menú principal
+                alert("Operación cancelada.");
+                continuar = false;
+                break;
+
+            default:
+                // Si ingresa cualquier otra cosa (letras, números fuera del 1-4)
+                alert("Opción no válida. Por favor, selecciona una opción del 1 al 4.");
+                break;
+        }
+
+        // Si el usuario no eligió salir deliberadamente (opción 4 o Cancelar), 
+        // le preguntamos si desea realizar otra operación usando confirm()
+        if (continuar) {
+            let respuesta = confirm("¿Deseas realizar otra operación?");
+            if (!respuesta) {
+                alert("Gracias por usar el cajero automático. ¡Hasta luego!");
+                continuar = false; // Rompe el bucle si el usuario presiona "Cancelar"
+            }
+        }
+    }
+
+
+</script>
