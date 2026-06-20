@@ -1,0 +1,87 @@
+
+<button onclick="main()">Iniciar Menu</button>
+
+<script>
+    function sumar(numero1, numero2) {
+        return Number(numero1) + Number(numero2);
+    }
+
+    function restar(numero1, numero2) {
+        return Number(numero1) - Number(numero2);
+    }
+
+    function multiplicar(numero1, numero2) {
+        return Number(numero1) * Number(numero2);
+    }
+
+    function dividir(numero1, numero2 = 1) {
+
+        return Number(numero1) / Number(numero2);
+    }
+
+    function main(){
+        alert("Gracias por visitarnos, ahora te dirigimos al menú de opciones...");
+
+        //REPETIR EL FORMULARIO HASTA QUE EL USUARIO CANCELE
+        let continuar = true;
+
+        while(continuar){
+            menu();
+
+            continuar = confirm("Desea continuar?");
+        }
+    }
+
+
+    function menu() {
+        const menu =
+            "Menú de opciones calculadora:\n" +
+            "1. Sumar.\n" +
+            "2. Restar.\n" +
+            "3. Multiplicar.\n" +
+            "4. Dividir.\n";
+
+        
+        let opcion = prompt(menu);
+
+        let numero1 = prompt("Ingrese el primer valor:");
+        let numero2 = prompt("Ingrese el segundo valor:");
+
+        function mensajeResultado(operacion, resultado){
+            alert(`El resultado de la operacion de ${operacion} es: ${resultado}`);
+        };
+
+        switch (opcion) {
+            case "1":
+                let suma = sumar(numero1, numero2);
+                mensajeResultado("Suma", suma);
+                break;
+            case "2":
+                let resta = restar(numero1, numero2);
+
+                mensajeResultado("Suma", resta);
+                break;
+            case "3":
+                let multiplicacion = multiplicar(numero1, numero2);
+
+                mensajeResultado("Multiplicar", multiplicacion);
+                break;
+            case "4":
+                let division = dividir(numero1, numero2);
+
+                if(isFinite(division)){
+                    mensajeResultado("Dividir", division);
+                }else {
+                    alert("No se puede divivir por 0");
+                }
+                break;
+
+
+            default:
+                alert("Opción inválida, vuelva a intentar");
+                break;
+        }
+
+    };
+
+</script>
