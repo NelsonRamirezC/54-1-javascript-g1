@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Wallet - Últimos Movimientos</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        body {
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>Últimos Movimientos</h2>
+        <div class="d-flex justify-content-around">
+            <button id="btnTodoEl" class="btn btn-secondary">Todo</button>
+            <button id="btnIngresosEl" class="btn btn-success">Ingresos</button>
+            <button id="btnEgresosEl" class="btn btn-danger">Egresos</button>
+        </div>
+        <div class="my-3">
+            <ul class="list-group" id="listaTransaccionesEl">
+            <!-- AQUÍ SE AGREGAN DESDE JAVASCRIPT LOS ELEMENTOS -->
+        </ul>
+        </div>
+        <a href="menu.html" class="btn btn-secondary">Volver al Menú Principal</a>
+    </div>
+</body>
+
+
+<script>
+    class Transaccion {
+        constructor(glosa, monto, ingreso = true) {
+            this.glosa = glosa;
+            this.monto = monto;
+            this.ingreso = ingreso;
+        };
+
+        montoStr(){
+            return this.monto.toLocaleString("es-CL", { style: "currency", currency: "CLP" });
+        }
+    };
+
+    const t1 = new Transaccion("Compra en línea", 50_000, false);
+    const t2 = new Transaccion("Depósito", 100_000, true);
+    const t3 = new Transaccion("Transferencia recibida", 75_000, true);
+
+    const transacciones = [t1, t2, t3];
+
+    //ELEMENTOS DEL DOM
+    const listaTransaccionesEl = document.getElementById("listaTransaccionesEl");
+
+
+    //CARGAR TRANSACCIONES EN LISTA
+    function cargarListaTransacciones(lista = []) {
+
+        if(lista.length == 0) return false;
+
+        listaTransaccionesEl.innerHTML = "";
+
+        const fragment = new DocumentFragment();
+
+        for (const t of lista) {
+            const li = document.createElement("li");
+            const span = document.createElement("span");
+
+            span.textContent = t.montoStr();
+
+            li.textContent = t.glosa;
+            li.classList.add("list-group-item");
+            li.classList.add("d-flex");
+            li.classList.add("justify-content-between");
+            li.classList.add("list-group-item-action");
+
+            if(t.ingreso){
+                li.classList.add("list-group-item-success");
+            }else {
+                li.classList.add("list-group-item-danger");
+            }
+
+            li.append(span);
+
+            fragment.append(li);
+        };
+
+        listaTransaccionesEl.append(fragment);
+
+    };
+
+    //FUNCIÓN PRINCIPAL -> FUNCIÓN IIFE AUTO INVOCADA
+    (function () {
+        cargarListaTransacciones(transacciones);
+    })();
+
+
+    //EVENTO BOTONES...
+
+    //EVENTO BOTÓN TODO
+    const btnTodoEl = document.getElementById("btnTodoEl");
+
+    btnTodoEl.addEventListener("click", function(){
+        cargarListaTransacciones(transacciones);
+    });
+
+    //EVENTO BOTÓN INGRESOS
+    const btnIngresosEl = document.getElementById("btnIngresosEl");
+
+    btnIngresosEl.addEventListener("click", function(){
+
+        let transaccionesIngresos = transacciones.filter(t => t.ingreso);
+        cargarListaTransacciones(transaccionesIngresos);
+    });
+
+    //EVENTO BOTÓN egresos
+    const btnEgresosEl = document.getElementById("btnEgresosEl");
+
+    btnEgresosEl.addEventListener("click", function(){
+
+        let transaccionesEgresos = transacciones.filter(t => !t.ingreso);
+        cargarListaTransacciones(transaccionesEgresos);
+    });
+
+</script>
+
+</html>
