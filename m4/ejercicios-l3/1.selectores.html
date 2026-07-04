@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selectores</title>
+</head>
+
+<body>
+    <header>
+        <h1 id="titulo-principal">Titulo principal</h1>
+    </header>
+
+    <main>
+        <section>
+            <ul>
+                <li class="destacado">Elemento 1</li>
+                <li>Elemento 2</li>
+                <li class="destacado">Elemento 3</li>
+            </ul>
+        </section>
+
+        <section>
+            <p>texto 1</p>
+            <p>texto 2</p>
+            <p>texto 3</p>
+        </section>
+    </main>
+
+
+    <style>
+        .parrafo {
+            color:orange;
+            font-size: 20px;
+            text-decoration: underline;
+        }
+    </style>
+
+    <script>
+
+        //SELECTOR DE ID
+        const tituloPrincipal = document.getElementById("titulo-principal");
+        tituloPrincipal.innerText = tituloPrincipal.innerText.toUpperCase();
+
+        //SELECTOR DE CLASE
+        const destacados = document.getElementsByClassName("destacado");
+
+        for (const elemento of destacados) {
+            elemento.style.color = "red";
+            elemento.style.backgroundColor = "green";
+        }
+
+        //SELECTOR DE TAG
+        const parrafos = document.getElementsByTagName("p");
+
+        for (const parrafo of parrafos) {
+            parrafo.classList.add("parrafo");
+        }
+
+    </script>
+</body>
+
+</html>

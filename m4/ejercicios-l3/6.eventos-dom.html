@@ -1,0 +1,28 @@
+<style>
+    .ocultar {
+        display: none;
+    }
+</style>
+
+<div>
+    <button id="btn-ocultar">Ocultar</button>
+    <button id="btn-mostrar">Mostrar</button>
+    <div id="caja-texto">
+        <p>Esto es un texto</p>
+    </div>
+</div>
+
+<script>
+    const btnOcultar = document.querySelector("#btn-ocultar");
+    const cajaTexto = document.querySelector("#caja-texto");
+
+    btnOcultar.addEventListener("click", (event) => {
+        cajaTexto.classList.add("ocultar");
+    });
+
+    const btnMostrar = document.querySelector("#btn-mostrar");
+    btnMostrar.addEventListener("click", (event) => {
+        cajaTexto.classList.remove("ocultar");
+    });
+
+</script>

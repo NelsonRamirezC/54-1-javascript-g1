@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tareas - Bootstrap</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+
+
+</head>
+
+<body>
+
+    <header class="py-3">
+        <h1 class="text-center">Gestión de tareas</h1>
+    </header>
+
+    <main class="container">
+        <section class="py-3">
+            <h2>Filtrar tareas</h2>
+            <div>
+                <div>
+                    <label for="titulo" class="form-label">Buscar tareas (titulo / descripción):</label>
+                    <input type="text" id="titulo" class="form-control">
+                </div>
+            </div>
+
+            <div class="py-2">
+                <h3>Filtrar por estado:</h3>
+                <div id="contenedor-botones-filtro-estado">
+                    <button class="btn btn-secondary" data-estado="Todos">Todas</button>
+                    <button class="btn btn-warning" data-estado="Pendiente">Pendientes</button>
+                    <button class="btn btn-primary" data-estado="En proceso">En proceso</button>
+                    <button class="btn btn-success" data-estado="Finalizada">Finalizadas</button>
+                </div>
+                <div>
+                    <p>Current estado: <span id="output-current-estado">Todos</span></p>
+                </div>
+            </div>
+            <hr>
+        </section>
+
+        <section class="py-3">
+            <h2 class="text-center">Lista de tareas:</h2>
+
+            <div class="row" id="lista-tareas">
+
+                <!-- AQUÍ SE AGREGAN DE FORMA DINÁMICA CON JAVASCRIPT LAS TARJETAS -->
+
+            </div>
+        </section>
+    </main>
+
+
+
+
+
+    <script>
+
+        let currentEstado = "Todos";
+
+        const arrayTareas = [
+            {
+                id: 1,
+                titulo: "Comprar pan.",
+                descripcion: "2 kgs. de marraqueta.",
+                estado: "Pendiente"
+            },
+            {
+                id: 2,
+                titulo: "Comprar 2 bolsas de choripán.",
+                descripcion: "2 bolsas de 1 kg choripán.",
+                estado: "En proceso"
+            },
+            {
+                id: 3,
+                titulo: "Comprar bebidas de 3 lts.",
+                descripcion: "1 Coca Cola, 1 Fanta, 1 Sprite.",
+                estado: "Finalizada"
+            },
+            {
+                id: 4,
+                titulo: "Comprar carne.",
+                descripcion: "2 kg de lomo liso.",
+                estado: "Finalizada"
+            },
+            {
+                id: 5,
+                titulo: "Comprar mayonesa",
+                descripcion: "1 bolsa de mayonesa de 1 kg.",
+                estado: "Finalizada"
+            },
+        ];
+
+
+        const mostrarTareas = (tareas = []) => {
+            const listaTareas = document.getElementById("lista-tareas");
+
+            const asignarColor = (estado) => {
+
+                switch (estado) {
+                    case "Pendiente":
+                        return "text-bg-warning";
+                        break;
+
+                    case "En proceso":
+                        return "text-bg-primary";
+                        break;
+
+                    case "Finalizada":
+                        return "text-bg-success";
+                        break;
+
+                    default:
+                        return "text-bg-secondary";
+                        break;
+                }
+
+            };
+
+            let tarjetas = "";
+            for (const tarea of tareas) {
+                let { titulo, descripcion, estado } = tarea;
+                tarjetas += `
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card ${asignarColor(estado)} mb-3 w-75 mx-auto">
+                        <div class="card-header">${estado}</div>
+                        <div class="card-body">
+                            <h5 class="card-title">${titulo}</h5>
+                            <p class="card-text">${descripcion}</p>
+                        </div>
+                    </div>
+                </div>
+
+            `;
+            };
+
+            listaTareas.innerHTML = tarjetas;
+        }
+
+
+        const main = () => {
+            mostrarTareas(arrayTareas);
+        };
+
+        main();
+
+
+
+
+        //EVENTO DE BUSCAR TAREA POR TITULO
+
+        const tituloInput = document.getElementById("titulo");
+
+        tituloInput.addEventListener("input", () => {
+
+            let textoBusqueda = tituloInput.value;
+
+            //QUITAMOS LOS ESPACIOS ANTES Y DESPUÉS
+            textoBusqueda = textoBusqueda.trim();
+
+            //NORMALIZAMOS EL TEXTO A MINÚSCULAS
+            textoBusqueda = textoBusqueda.toLowerCase();
+
+            let tareasFiltradas = arrayTareas.filter(tarea => {
+                let { titulo, descripcion, estado } = tarea;
+                //DEJAMOS EL TITULO Y DESCRIPCIÓN DE LA TAREA EN MINÚSCULAS PARA NORMALIZAR
+                titulo = titulo.toLowerCase();
+                descripcion = descripcion.toLowerCase();
+
+                //REGLAS DE FILTRO
+                let reglaTitulo = titulo.includes(textoBusqueda);
+                let reglaDescripcion = descripcion.includes(textoBusqueda);
+
+
+                let reglaEstado;
+
+                if (currentEstado == "Todos") {
+                    reglaEstado = true;
+                } else {
+                    reglaEstado = (estado == currentEstado);
+                }
+
+                if ((reglaTitulo || reglaDescripcion) && reglaEstado) {
+                    return tarea;
+                }
+            });
+
+            //ENVIAMOS EL LISTADO DE TAREAS FILTRADAS...
+            mostrarTareas(tareasFiltradas);
+        });
+
+
+
+        //EVENTO BOTONES PARA FILTRAR POR ESTADO
+
+        const contenedorBotonesFiltroEstado = document.getElementById("contenedor-botones-filtro-estado");
+
+        //DELEGACIÓN DE EVENTOS
+        contenedorBotonesFiltroEstado.addEventListener("click", (event) => {
+            let elemento = event.target;
+
+            if (elemento.tagName == "BUTTON") {
+
+                let estado = elemento.dataset.estado;
+
+                //DEJAMOS COMO ESTADO DE FINALIZACIÓN ACTUAL
+                currentEstado = estado;
+
+                document.getElementById("output-current-estado").innerText = currentEstado;
+
+                //FILTRAR TAREAS POR ESTADO
+
+                if (estado == "Todos") {
+                    mostrarTareas(arrayTareas);
+                } else {
+                    const tareasFiltradas = arrayTareas.filter(tarea => tarea.estado == estado);
+                    mostrarTareas(tareasFiltradas);
+                }
+
+                //EJECUTAMOS EL EVENTO DEL INPUT
+                tituloInput.dispatchEvent(new Event('input', { bubbles: true }));
+            }
+        });
+
+    </script>
+</body>
+
+</html>

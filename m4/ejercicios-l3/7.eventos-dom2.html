@@ -1,0 +1,28 @@
+<style>
+    .ocultar {
+        display: none;
+    }
+</style>
+
+<div>
+    <button id="btn-switch">Ocultar</button>
+    <div id="caja-texto">
+        <p>Esto es un texto</p>
+    </div>
+</div>
+
+<script>
+    const btnSwitch = document.querySelector("#btn-switch");
+    const cajaTexto = document.querySelector("#caja-texto")
+
+    btnSwitch.addEventListener("click", (event) => {
+
+        cajaTexto.classList.toggle("ocultar");
+        if (cajaTexto.className.includes("ocultar")) {
+            btnSwitch.textContent = "Mostrar";
+        } else {
+            btnSwitch.textContent = "Ocultar";
+        }
+    });
+
+</script>

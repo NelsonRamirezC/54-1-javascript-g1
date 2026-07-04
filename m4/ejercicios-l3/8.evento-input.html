@@ -1,0 +1,18 @@
+<div>
+    <label for="nombre">Introduce tu nombre</label>
+    <input type="text" id="nombre">
+</div>
+<div>
+    <p>Tu nombre es: <span id="output-nombre"></span></p>
+</div>
+
+<script>
+
+    const nombreInput = document.getElementById("nombre");
+    const outputNombre = document.getElementById("output-nombre");
+
+    nombreInput.addEventListener("input", () => {
+        outputNombre.textContent = nombreInput.value.toUpperCase();
+    });
+
+</script>

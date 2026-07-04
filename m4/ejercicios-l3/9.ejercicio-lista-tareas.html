@@ -1,0 +1,100 @@
+<section>
+    <div>
+        <label for="titulo">Buscar tareas:</label>
+        <input type="text" id="titulo">
+    </div>
+</section>
+
+<section>
+    <h2>Lista de tareas:</h2>
+
+    <ul id="lista-tareas">
+
+    </ul>
+</section>
+
+<script>
+
+    const arrayTareas = [
+        {
+            id: 1,
+            titulo: "Comprar pan.",
+            descripcion: "2 kgs. de marraqueta.",
+            estado: "Pendiente"
+        },
+        {
+            id: 2,
+            titulo: "Comprar 2 bolsas de choripán.",
+            descripcion: "2 bolsas de 1 kg choripán.",
+            estado: "En proceso"
+        },
+        {
+            id: 3,
+            titulo: "Comprar bebidas de 3 lts.",
+            descripcion: "1 Coca Cola, 1 Fanta, 1 Sprite.",
+            estado: "Finalizada"
+        },
+    ];
+
+
+
+    const mostrarTareas = (tareas = []) => {
+        const listaTareas = document.getElementById("lista-tareas");
+
+        let elementosLi = "";
+        for (const tarea of tareas) {
+            let { titulo, descripcion, estado } = tarea;
+            elementosLi += `
+            <li>
+                Titulo: ${titulo}, Descripción: ${descripcion}, Estado: ${estado}
+            </li>
+            `;
+        };
+
+        listaTareas.innerHTML = elementosLi;
+    }
+
+
+    const main = () => {
+        mostrarTareas(arrayTareas);
+    };
+
+    main();
+
+
+
+
+    //EVENTO DE BUSCAR TAREA POR TITULO
+
+    const tituloInput = document.getElementById("titulo");
+
+    tituloInput.addEventListener("input", () => {
+
+        let textoBusqueda = tituloInput.value;
+
+        //QUITAMOS LOS ESPACIOS ANTES Y DESPUÉS
+        textoBusqueda = textoBusqueda.trim();
+
+        //NORMALIZAMOS EL TEXTO A MINÚSCULAS
+        textoBusqueda = textoBusqueda.toLowerCase();
+
+        let tareasFiltradas = arrayTareas.filter(tarea => {
+            let { titulo, descripcion } = tarea;
+            //DEJAMOS EL TITULO Y DESCRIPCIÓN DE LA TAREA EN MINÚSCULAS PARA NORMALIZAR
+            titulo = titulo.toLowerCase();
+            descripcion = descripcion.toLowerCase();
+
+            //REGLAS DE FILTRO
+            let reglaTitulo = titulo.includes(textoBusqueda);
+            let reglaDescripcion = descripcion.includes(textoBusqueda);
+
+            if(reglaTitulo || reglaDescripcion){
+                return tarea;
+            }
+        });
+
+        //ENVIAMOS EL LISTADO DE TAREAS FILTRADAS...
+        mostrarTareas(tareasFiltradas);
+    });
+
+</script>
