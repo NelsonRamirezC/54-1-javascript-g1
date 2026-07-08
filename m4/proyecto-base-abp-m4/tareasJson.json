@@ -1,0 +1,17 @@
+{
+    "tareas": [
+        {
+            "id": "36d10c5a-3c79-4c6f-9392-f8177bcea1c7",
+            "descripcion": "Tarea 1 BD...",
+            "estado": false,
+            "fechaCreacion": "06/07/2026"
+        },
+        {
+            "id": "b7c3ba5f-a582-4238-a402-4aa2f7f760fd",
+            "descripcion": "Tarea 2 BD...",
+            "estado": false,
+            "fechaCreacion": "06/07/2026"
+        }
+
+    ]
+}
