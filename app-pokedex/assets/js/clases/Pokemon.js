@@ -11,6 +11,7 @@ class Pokemon {
         this.estatura = estatura;
         this.imagen =  imagen;
         this.tipo = tipo;
+        this.apodo = "";
     }
 }
 

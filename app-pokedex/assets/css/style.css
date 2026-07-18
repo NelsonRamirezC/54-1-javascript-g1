@@ -1,3 +1,8 @@
 #pokemon-imagen {
     aspect-ratio: 3/2;
 }
+
+#cuerpo-tabla-pokemones img {
+    width: 75px;
+    aspect-ratio: 3/2;
+}
